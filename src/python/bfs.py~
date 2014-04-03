@@ -1,8 +1,6 @@
 from collections import deque 
 
 def execute(V, E, s, adjList):
-    global dist
-    global color
     dist = {}
     color = {}
     for u in V:
@@ -19,12 +17,11 @@ def execute(V, E, s, adjList):
                 color[v] = 'grey'
                 Q.append(v)
         color[u] = 'black'
-    printBfs(V, E, s)
     return dist
     
-def printBfs(V, E, s):
+def printOut(V, E, s, distList):
     for u in V:
         if s == u:
-            print s + ' ' + u + ' ' + str(dist[u])
-        elif dist[u] != 0:
-            print s + ' ' + u + ' ' + str(dist[u])
+            print s + ' ' + u + ' ' + str(distList[u])
+        elif distList[u] != 0:
+            print s + ' ' + u + ' ' + str(distList[u])

@@ -10,7 +10,7 @@ def main():
         bfs.execute(vertexes, edges, vertexes[0], adjList)
     #elif argv[1] == 'scc'
     elif argv[1] == 'bf':
-        bf.execute(vertexes, edges, vertexes[0])
+        bf.execute(vertexes, edges, vestexes[0])
         
         
 

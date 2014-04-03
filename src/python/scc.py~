@@ -16,7 +16,6 @@ def dfs(V, E, adjList):
         color[u] = 'white'
     time = 0
     dist = {}
-    final = {}
     for u in V:
         if color[u] == 'white':
             dfs-visit(u, adjList)

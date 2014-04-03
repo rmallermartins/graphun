@@ -1,10 +1,29 @@
-src/python/run bfs testes/bfs/1.g: OK (24ms)
-src/python/run bfs testes/bfs/2.g: OK (22ms)
-src/python/run bfs testes/bfs/3.g: OK (23ms)
-src/python/run bfs testes/bfs/4.g: OK (26ms)
-src/python/run bfs testes/bfs/5.g: OK (28ms)
-src/python/run bfs testes/bfs/6.g: OK (169ms)
-src/python/run bfs testes/bfs/7.g: OK (330ms)
-src/python/run bfs testes/bfs/8.g: OK (686ms)
-src/python/run bfs testes/bfs/9.g: OK (1s 580ms)
-Total: 9  Errors: 0 (5s 3ms)
+src/python/run bf testes/bf/1.g: OK (24ms)
+src/python/run bf testes/bf/2.g: Fail
+  ** STDOUT **
+    s 0
+  ** STDERR **
+    Traceback (most recent call last):
+      File "main.py", line 18, in <module>
+        main()
+      File "main.py", line 13, in main
+        bf.execute(vertexes, edges, vertexes[0])
+      File "/home/rodrigo/graphun/src/python/bf.py", line 15, in execute
+        printBf(V, s)
+      File "/home/rodrigo/graphun/src/python/bf.py", line 31, in printBf
+        printPath(s, v)
+      File "/home/rodrigo/graphun/src/python/bf.py", line 38, in printPath
+        elif pi[v] == None:
+    KeyError: 'r'
+  ** ERRORS **
+    caminho não encontrado: s y
+    caminho não encontrado: s t
+    caminho não encontrado: s z
+    caminho não encontrado: s x
+src/python/run bf testes/bf/3.g: OK (26ms)
+src/python/run bf testes/bf/4.g: OK (30ms)
+src/python/run bf testes/bf/5.g: OK (35ms)
+src/python/run bf testes/bf/6.g: OK (1s 100ms)
+src/python/run bf testes/bf/7.g: OK (8s 823ms)
+src/python/run bf testes/bf/8.g: OK (30s 138ms)
+src/python/run bf testes/bf/9.g: 
