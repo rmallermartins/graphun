@@ -1,34 +1,19 @@
 import graph
+import dfs
+from collections import deque
 
 def execute(V, E, adjList):
-    dfs(V, E, adjList)
+    vertexList = dfs.execute(V, adjList)
     ET = graph.transpose(E)
     transpAdjList = graph.makeAdjList(V, ET)
+    vertexList.sort()
+    sccList, pi = dfs.execute(vertexList.reverse(), transpAdjList)
+    printScc(sccList, pi)
 
-def dfs(V, E, adjList):
-    global color
-    global dist
-    global final
-    global pi
-    global time
-    color = {}
-    for u in V:
-        color[u] = 'white'
-    time = 0
-    dist = {}
-    final = {}
-    for u in V:
-        if color[u] == 'white':
-            dfs-visit(u, adjList)
-            
-def dfs-visit(u, adjList):
-    time += 1
-    color[u] = 'grey'
-    dist[u] = time
-    for v in adjList[u]:
-        if color[v] == 'white'
-            dad[v] = u
-            dfs-visit(v)
-    color[u] = 'preto'
-    time += 1
-    final[u] = time
+def printScc(sccList, pi):
+    for v in sccList:
+        if pi[v] == None:
+            print v
+        else:
+            print v,
+        

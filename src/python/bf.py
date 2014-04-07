@@ -1,30 +1,19 @@
 from sys import maxint
+import graph
 
-def execute(V, E, s):
+def execute(V, E, s, weight):
     global dist
     global pi
     dist = {}
     pi = {}
-    initializeSingleSource(V, E, s)
+    pi, dist = graph.initializeSingleSource(V, E, s, pi, dist)
     for i in range(1, len(V)-1):
         for e in E:
-            relax(e[0], e[1], int(e[2]))
+            pi, dist = graph.relax(e[0], e[1], weight[(e[0], e[1])], pi, dist)
     for e in E:
-        if dist[e[1]] > dist[e[0]] + int(e[2]):
+        if dist[e[1]] > dist[e[0]] + weight[(e[0], e[1])]:
             print "Erro, grafo contem ciclo negativo"
     printBf(V, s)
-    
-
-def relax(u, v, w):
-    if dist[v] > dist[u] + w:
-        dist[v] = dist[u] + w
-        pi[v] = u
-
-def initializeSingleSource(V, E, s):
-    for v in V:
-        dist[v] = maxint
-    dist[s] = 0
-    pi[s] = None
     
 def printBf(V, s):
     for v in V:
