@@ -3,7 +3,7 @@ import dfs
 from collections import deque
 
 def execute(V, E, adjList):
-    vertexList = dfs.execute(V, adjList)
+    vertexList, pi = dfs.execute(V, adjList)
     ET = graph.transpose(E)
     transpAdjList = graph.makeAdjList(V, ET)
     vertexList.sort()

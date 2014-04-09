@@ -1,30 +1,28 @@
-from collections import deque 
+import graph
+from collections import deque
 
-def execute(V, E, s, adjList):
-    global dist
-    global color
-    dist = {}
-    color = {}
-    for u in V:
-        dist[u] = 0
-        color[u] = 'white'
-    color[s] = 'grey'
-    Q = deque()
-    Q.append(s)
-    while Q:
-        u = Q.popleft()
-        for v in adjList[u]:
-            if color[v] == 'white':
-                dist[v] = dist[u] + 1
-                color[v] = 'grey'
-                Q.append(v)
-        color[u] = 'black'
-    printBfs(V, E, s)
-    return dist
+class Bfs:
     
-def printBfs(V, E, s):
-    for u in V:
-        if s == u:
-            print s + ' ' + u + ' ' + str(dist[u])
-        elif dist[u] != 0:
-            print s + ' ' + u + ' ' + str(dist[u])
+    def execute(self, G, s):
+        for key, u in G.V.iteritems():
+            u.d = 0
+        s.color = 'grey'
+        Q = deque()
+        Q.append(s)
+        while Q:
+            u = Q.popleft()
+            for key in u.adjList:
+                v = G.V[key]
+                if v.color == 'white':
+                    v.d = u.d + 1
+                    v.color = 'grey'
+                    Q.append(v)
+            u.color = 'black'
+        self.printBfs(G, s)
+        
+    def printBfs(self, G, s):
+        for key, u in G.V.iteritems():
+            if s.name == u.name:
+                print s.name + ' ' + u.name + ' ' + str(u.d)
+            elif u.d != 0:
+                print s.name + ' ' + u.name + ' ' + str(u.d)

@@ -1,31 +1,31 @@
 from sys import maxint
 import graph
 
-def execute(V, E, s, weight):
-    global dist
-    global pi
-    dist = {}
-    pi = {}
-    pi, dist = graph.initializeSingleSource(V, E, s, pi, dist)
-    for i in range(1, len(V)-1):
-        for e in E:
-            pi, dist = graph.relax(e[0], e[1], weight[(e[0], e[1])], pi, dist)
-    for e in E:
-        if dist[e[1]] > dist[e[0]] + weight[(e[0], e[1])]:
-            print "Erro, grafo contem ciclo negativo"
-    printBf(V, s)
-    
-def printBf(V, s):
-    for v in V:
-        printPath(s, v)
-        if dist[v] < maxint:
-            print dist[v]
+class Bf:
 
-def printPath(s, v):
-    if s == v:
-        print s,
-    elif pi[v] == None:
-        None
-    else:
-        printPath(s, pi[v])
-        print v,
+    def execute(self, G, s):
+        G.initializeSingleSource(s)
+        for i in range(1, len(G.V) - 1):
+            for i in range(len(G.E)):
+                e = G.E[i]
+                G.relax(e.orig, e.dest, e.w)  
+        for i in range(len(G.E)):
+            e = G.E[i]
+            if e.dest.d > e.orig.d + e.w:
+                print "Erro, grafo contem ciclo negativo"
+        self.printBf(G, s)
+    
+    def printBf(self, G, s):
+        for key, v in G.V.iteritems():
+            self.printPath(s, v)
+            if v.d < maxint:
+                print v.d
+
+    def printPath(self, s, v):
+        if s.name == v.name:
+            print s.name,
+        elif v.pi == None:
+            None
+        else:
+            self.printPath(s, v.pi)
+            print v.name,

@@ -1,18 +1,29 @@
 from sys import argv
-import bfs
-import graph
-import scc
-import bf
+from bfs import Bfs
+from bf import Bf
+from graph import Graph
 
 def main():
-    vertexes, edges, adjList = graph.makeGraph(argv[2])
+    G = Graph()
+    G.readGraphFile(argv[2])
+    
     if argv[1] == 'bfs':
-        bfs.execute(vertexes, edges, vertexes[0], adjList)
+        G.makeAdjLists()
+        s = G.getInitVertex()
+        bfs = Bfs()
+        bfs.execute(G, s)
+        
     elif argv[1] == 'scc':
         scc.execute(vertexes, edges, adjList)
+        
     elif argv[1] == 'bf':
-        weight = graph.makeWeightList(edges)
-        bf.execute(vertexes, edges, vertexes[0], weight)
+        bf = Bf()
+        s = G.getInitVertex()
+        bf.execute(G, s)
+        
+    elif argv[1] == 'fw':
+        W = graph.makeAdjMatrix(vertexes, edges, adjList)
+        fw.execute(vertexes, W)
         
         
 

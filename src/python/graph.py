@@ -1,57 +1,62 @@
 from sys import maxint
+from vertex import Vertex
+from edge import Edge
 
-def makeGraph(filename):
-    f = open(filename)
-    data = f.readlines()
-    data = [(a.strip()) for a in data]
-    div = data.index("#")
-    vertexes = data[:div]
-    edges = data[div+1:]
-    edges = [(e.split(' ')) for e in edges]
-    adjList = makeAdjList(vertexes, edges)
-    return vertexes, edges, adjList
+class Graph(object):
 
-def makeAdjList(vertexes, edges):
-    adjList = {}
-    for v in vertexes:
-        adjList[v] = []
-    for e in edges:
-        adjList[e[0]].append(e[1])
-    return adjList
+    def __init__(self):
+        self.V = {}
+        self.E = []
     
-def makeAdjMatrix(vertexes, edges, adjList):
-    adjMatrix = [[0 for x in xrange(len(vertexes))] for x in xrange(len(vertexes))]
-    weight = makeWeightList(edges)
-    for u in vertexes
-        for v in adjList[u]
-            adjMatrix[u][v] = weight[(u, v)]
-    return adjMatrix
-            
-    
-def makeWeightList(edges):
-    weightList = {}
-    for e in edges:
-        weightList[(e[0], e[1])] = int(e[2])
-    return weightList
-    
-def transpose(edges):
-    edgesT = {}
-    eT = {}
-    for e in edges:
-        eT[0] = e[1]
-        eT[1] = e[0] 
-    return edgesT
+    def readGraphFile(self, filename):
+        f = open(filename)
+        isVertex = True
+        index = 0
+        for line in f:
+            line = line.strip()
+            if isVertex == True and line != "#":
+                v = Vertex(line, index)
+                self.V[line] = v
+                index += 1
+            elif line == "#":
+                isVertex = False                
+            elif isVertex == False:
+                edge = line.split(' ')
+                if len(edge) == 2:
+                    e = Edge(self.V[edge[0]], self.V[edge[1]], 0)
+                    self.E.append(e)
+                else:
+                    e = Edge(self.V[edge[0]], self.V[edge[1]], int(edge[2]))
+                    self.E.append(e)
+                    
 
-def relax(u, v, w, pi, dist):
-    if dist[v] > dist[u] + w:
-        dist[v] = dist[u] + w
-        pi[v] = u
-    return pi, dist
+    def makeAdjLists(self):
+        for e in self.E:
+            self.V[e.orig].adjList.append(e.dest)
+    
+    def getInitVertex(self):
+        for v in self.V:
+            if self.V[v].index == 0:
+                return self.V[v]
+    
+#    def makeAdjMatrix(self):  TODO
 
-def initializeSingleSource(V, E, s, pi, dist):
-    for v in V:
-        dist[v] = maxint
-        pi[v] = None
-    dist[s] = 0
-    pi[s] = None
-    return pi, dist
+    def transpose(edges):
+        edgesT = {}
+        eT = {}
+        for e in edges:
+            eT[0] = e[1]
+            eT[1] = e[0] 
+        return edgesT
+    
+    def relax(self, u, v, w):
+        if v.d > u.d + w:
+            v.d = u.d + w
+            v.pi = u
+
+    def initializeSingleSource(self, s):
+        for key, v in self.V.iteritems():
+            v.d = maxint
+            v.pi = None
+        s.d = 0
+        s.pi = None

@@ -6,8 +6,10 @@ def execute(V, E, s, adjList):
     global pi
     S = []
     Q = []
+    
     for v in V:
         heapq.heappush(Q, (dist(v), v))
+        
     while Q:
         (u, ) = heap.heappop(Q)
         S.append(u)
