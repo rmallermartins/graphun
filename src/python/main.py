@@ -5,6 +5,8 @@ from sys import argv
 from bfs import Bfs
 from bf import Bf
 from fw import Fw
+from scc import Scc
+from dk import Dk
 from graph import Graph
 
 def main():
@@ -17,13 +19,19 @@ def main():
         bfs.execute(G, s)
         
     elif argv[1] == 'scc':
-        scc.execute(vertexes, edges, adjList)
+        scc = Scc()
+        scc.execute(G)
         
     elif argv[1] == 'bf':
         bf = Bf()
         s = G.getInitVertex()
         bf.execute(G, s)
         
+    elif argv[1] == 'dk':
+        dk = Dk()
+        s = G.getInitVertex()
+        dk.execute(G, s)
+    
     elif argv[1] == 'fw':
         W = G.getAdjMatrix()
         fw = Fw()

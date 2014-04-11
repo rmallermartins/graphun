@@ -2,39 +2,43 @@ import sys
 sys.path.append("../Structures/")
 from collections import deque
 
-def execute(V, adjList):
-    global pi
-    global dist
-    global color
-    global final
-    color = {}
-    pi = {}
-    time = 0
-    vertexList = []
-    dist = {}
-    final = {}
-    
-    for u in V:
-        color[u] = 'white'
-        pi[u] = None
-        
-    for u in V:
-        if color[u] == 'white':
-            vertexList = dfsVisit(u, adjList, vertexList, time)
-    return vertexList, pi
+class Dfs:
+    __time = 0
+
+    def executeNormal(self, G):
+        for key, u in G.getVertexes().iteritems():
+            u.setColor('white')
+            u.setPi(None)
+        vertexSeq = []
+        self.__time = 0
+        for key, u in G.getVertexes().iteritems():
+            if u.getColor() == 'white':
+                self.dfsVisit(G, u, vertexSeq)
+        return vertexSeq
+                
+    def executeTransp(self, G, vertexSeq):
+        sccList = []
+        for key, u in G.getVertexes().iteritems():
+            u.setColor('white')
+            u.setPi(None)
+        vertexSeq.sort
+        vertexSeq.reverse
+        self.__time = 0
+        for u in vertexSeq:
+            if u.getColor() == 'white':
+                self.dfsVisit(G, u, sccList)
+        return sccList
             
-def dfsVisit(u, adjList, vertexList, time):
-    time += 1
-    color[u] = 'grey'
-    dist[u] = time
-    
-    for v in adjList[u]:
-        if color[v] == 'white':
-            pi[v] = u
-            vertexList = dfsVisit(v, adjList, vertexList, time)
-            
-    color[u] = 'black'
-    time += 1
-    final[u] = time
-    vertexList.append(u)
-    return vertexList
+    def dfsVisit(self, G, u, vertexSeq):
+        self.__time += 1
+        u.setColor('grey')
+        u.setD(self.__time)
+        for key in u.getAdjList():
+            v = G.getVertexes()[key]
+            if v.getColor() == 'white':
+                v.setPi(u)
+                self.dfsVisit(G, v, vertexSeq)         
+        u.setColor('black')
+        self.__time += 1
+        u.setF(self.__time)
+        vertexSeq.append(u)

@@ -15,11 +15,18 @@ class Dk:
         
         while Q:
             (d, index, u) = heapq.heappop(Q)
-            S.append(u)
-            for v in adjList[u]
-                graph.relax(u, v, weightList(u, v))
+            for key in u.getAdjList():
+                v = G.getVertexes()[key]
+                e = G.getEdges()[u.getName() + ' ' + v.getName()]
+                self.relax(Q, u, v, e.getW())
         self.printDk(G, s)
-                
+           
+    def relax(self, Q, u, v, w):
+        if v.getD() > u.getD() + w:
+            v.setD(u.getD() + w)
+            v.setPi(u)
+            heapq.heappush(Q, (v.getD(), v.getId(), v))
+    
     def printDk(self, G, s):
         for key, v in G.getVertexes().iteritems():
             self.printPath(s, v)

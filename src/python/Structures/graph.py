@@ -6,7 +6,8 @@ class Graph(object):
 
     def __init__(self):
         self.__V = {}
-        self.__E = []
+        self.__E = {}
+        self.__ET = {}
         self.__nVertex = 0
     
     def buildGraph(self, filename):
@@ -26,16 +27,24 @@ class Graph(object):
                 else:
                     self.addEdge(self.__V[edge[0]], self.__V[edge[1]], int(edge[2]))
         self.makeAdjLists()
+    
+    def buildTranspGraph(self):
+        for key, v in self.__V.iteritems():
+            v.cleanAdjList()
+        self.makeTranspEdges()
                     
-
     def makeAdjLists(self):
-        for e in self.__E:
+        for key, e in self.__E.iteritems():
             self.__V[e.getOrig().getName()].addAdjVertex(e.getDest().getName())
     
-    def relax(self, u, v, w):
-        if v.getD() > u.getD() + w:
-            v.setD(u.getD() + w)
-            v.setPi(u)
+    def makeTranspAdjLists(self):
+        for key, e in self.__ET.iteritems():
+            self.__V[e.getOrig().getName()].addAdjVertex(e.getDest().getName())
+            
+    def makeTranspEdges(self):
+        for key, e in self.getEdges().iteritems():
+            self.addTranspEdge(e.getDest(), e.getOrig(), 0)
+        self.makeTranspAdjLists()
 
     def initializeSingleSource(self, s):
         for key, v in self.__V.iteritems():
@@ -54,10 +63,19 @@ class Graph(object):
     
     def addEdge(self, orig, dest, w):
         newEdge = Edge(orig, dest, w)
-        self.__E.append(newEdge)
+        newKey = orig.getName() + ' ' + dest.getName()
+        self.__E[newKey] = newEdge
+    
+    def addTranspEdge(self, orig, dest, w):
+        newEdge = Edge(orig, dest, w)
+        newKey = orig.getName() + ' ' + dest.getName()
+        self.__ET[newKey] = newEdge
     
     def getEdges(self):
         return self.__E
+        
+    def getTranspEdges(self):
+        return self.__ET
     
     def getNVertex(self):
         return self.__nVertex
@@ -72,12 +90,4 @@ class Graph(object):
         for v in self.__V:
             if self.__V[v].getId() == 0:
                 return self.__V[v]
-
-    def getTransposed(edges): #TODO
-        edgesT = {}
-        eT = {}
-        for e in edges:
-            eT[0] = e[1]
-            eT[1] = e[0] 
-        return edgesT
     

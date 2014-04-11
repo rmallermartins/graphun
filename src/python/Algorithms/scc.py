@@ -1,21 +1,22 @@
 import sys
 sys.path.append("../Structures/")
 import graph
-import dfs
+from dfs import Dfs
 from collections import deque
 
-def execute(V, E, adjList):
-    vertexList, pi = dfs.execute(V, adjList)
-    ET = graph.transpose(E)
-    transpAdjList = graph.makeAdjList(V, ET)
-    vertexList.sort()
-    sccList, pi = dfs.execute(vertexList.reverse(), transpAdjList)
-    printScc(sccList, pi)
+class Scc:
 
-def printScc(sccList, pi):
-    for v in sccList:
-        if pi[v] == None:
-            print v
-        else:
-            print v,
-        
+    def execute(self, G):
+        dfs = Dfs()
+        vertexSeq = dfs.executeNormal(G)
+        G.buildTranspGraph()
+        sccList = dfs.executeTransp(G, vertexSeq)
+        self.printScc(G, sccList)
+
+    def printScc(self, G, sccList):
+        for v in sccList:
+            print v.getPi().getName()
+            if v.getPi() == None:
+                print v.getName()
+            else:
+                print v.getName(),

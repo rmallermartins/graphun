@@ -11,6 +11,9 @@ class Vertex(object):
         self.__d = maxint
         self.__f = None
         
+    def cleanAdjList(self):
+        self.adjList = []    
+        
     def getId(self):
         return self.__id
         

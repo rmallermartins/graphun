@@ -8,13 +8,17 @@ class Bf:
     def execute(self, G, s):
         G.initializeSingleSource(s)
         for i in range(1, len(G.getVertexes()) - 1):
-            for e in G.getEdges():
-                G.relax(e.getOrig(), e.getDest(), e.getW())  
-        for i in range(len(G.getEdges())):
-            e = G.getEdges()[i]
+            for key, e in G.getEdges().iteritems():
+                self.relax(e.getOrig(), e.getDest(), e.getW())  
+        for key, e in G.getEdges().iteritems():
             if e.getDest().getD() > e.getOrig().getD() + e.getW():
                 print "Erro, grafo contem ciclo negativo"
         self.printBf(G, s)
+    
+    def relax(self, u, v, w):
+        if v.getD() > u.getD() + w:
+            v.setD(u.getD() + w)
+            v.setPi(u)
     
     def printBf(self, G, s):
         for key, v in G.getVertexes().iteritems():
