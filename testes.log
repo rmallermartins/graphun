@@ -1,10 +1,19 @@
-src/python/run bf testes/bf/1.g: OK (24ms)
-src/python/run bf testes/bf/2.g: OK (23ms)
-src/python/run bf testes/bf/3.g: OK (27ms)
-src/python/run bf testes/bf/4.g: OK (31ms)
-src/python/run bf testes/bf/5.g: OK (27ms)
-src/python/run bf testes/bf/6.g: OK (905ms)
-src/python/run bf testes/bf/7.g: OK (7s 982ms)
-src/python/run bf testes/bf/8.g: OK (27s 459ms)
-src/python/run bf testes/bf/9.g: OK (1m 4s)
-Total: 9  Errors: 0 (1m 42s)
+src/python/run dk testes/dk/1.g: Fail
+  ** STDOUT **
+  ** STDERR **
+  ** ERRORS **
+    caminho não encontrado: s y
+    caminho não encontrado: s t
+    caminho não encontrado: s z
+    caminho não encontrado: s x
+    caminho não encontrado: s s
+src/python/run dk testes/dk/2.g: Fail
+  ** STDOUT **
+  ** STDERR **
+  ** ERRORS **
+    caminho não encontrado: s y
+    caminho não encontrado: s t
+    caminho não encontrado: s z
+    caminho não encontrado: s x
+    caminho não encontrado: s s
+src/python/run dk testes/dk/3.g: 
