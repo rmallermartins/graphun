@@ -8,14 +8,13 @@ class Scc:
 
     def execute(self, G):
         dfs = Dfs()
-        vertexSeq = dfs.executeNormal(G)
+        dfs.executeNormal(G)
         G.buildTranspGraph()
-        sccList = dfs.executeTransp(G, vertexSeq)
-        self.printScc(G, sccList)
+        dfs.executeTransp(G)
+        self.printScc(G, dfs.getSccList())
 
     def printScc(self, G, sccList):
         for v in sccList:
-            print v.getPi().getName()
             if v.getPi() == None:
                 print v.getName()
             else:

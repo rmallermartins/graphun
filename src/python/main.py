@@ -23,14 +23,24 @@ def main():
         scc.execute(G)
         
     elif argv[1] == 'bf':
+        s = G.getInitVertex()
         bf = Bf()
-        s = G.getInitVertex()
         bf.execute(G, s)
-        
+    
+    elif argv[1] == 'bfall':
+        bf = Bf()
+        for key, s in G.getVertexes().iteritems():
+            bf.execute(G, s)
+    
     elif argv[1] == 'dk':
-        dk = Dk()
         s = G.getInitVertex()
+        dk = Dk()
         dk.execute(G, s)
+    
+    elif argv[1] == 'dkall':
+        dk = Dk()
+        for key, s in G.getVertexes().iteritems():
+            dk.execute(G, s)
     
     elif argv[1] == 'fw':
         W = G.getAdjMatrix()

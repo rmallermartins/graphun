@@ -4,32 +4,29 @@ from collections import deque
 
 class Dfs:
     __time = 0
+    __sccList = []
+    __vertexSeq = []
 
     def executeNormal(self, G):
         for key, u in G.getVertexes().iteritems():
             u.setColor('white')
             u.setPi(None)
-        vertexSeq = []
         self.__time = 0
         for key, u in G.getVertexes().iteritems():
             if u.getColor() == 'white':
-                self.dfsVisit(G, u, vertexSeq)
-        return vertexSeq
+                self.dfsVisit(G, u, self.__vertexSeq)
                 
-    def executeTransp(self, G, vertexSeq):
-        sccList = []
+    def executeTransp(self, G):
         for key, u in G.getVertexes().iteritems():
             u.setColor('white')
             u.setPi(None)
-        vertexSeq.sort
-        vertexSeq.reverse
         self.__time = 0
-        for u in vertexSeq:
+        self.__vertexSeq.reverse()
+        for u in self.__vertexSeq:
             if u.getColor() == 'white':
-                self.dfsVisit(G, u, sccList)
-        return sccList
+                self.dfsVisit(G, u, self.__sccList)
             
-    def dfsVisit(self, G, u, vertexSeq):
+    def dfsVisit(self, G, u, seqList):
         self.__time += 1
         u.setColor('grey')
         u.setD(self.__time)
@@ -37,8 +34,11 @@ class Dfs:
             v = G.getVertexes()[key]
             if v.getColor() == 'white':
                 v.setPi(u)
-                self.dfsVisit(G, v, vertexSeq)         
+                self.dfsVisit(G, v, seqList)         
         u.setColor('black')
         self.__time += 1
         u.setF(self.__time)
-        vertexSeq.append(u)
+        seqList.append(u)
+    
+    def getSccList(self):
+        return self.__sccList

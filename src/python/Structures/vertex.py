@@ -12,7 +12,7 @@ class Vertex(object):
         self.__f = None
         
     def cleanAdjList(self):
-        self.adjList = []    
+        self.__adjList = []
         
     def getId(self):
         return self.__id
